@@ -44,8 +44,8 @@
             // 
             // textBox_port
             // 
-            this.textBox_port.Location = new System.Drawing.Point(166, 43);
-            this.textBox_port.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox_port.Location = new System.Drawing.Point(167, 47);
+            this.textBox_port.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_port.Name = "textBox_port";
             this.textBox_port.Size = new System.Drawing.Size(64, 20);
             this.textBox_port.TabIndex = 0;
@@ -54,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(133, 46);
+            this.label1.Location = new System.Drawing.Point(134, 50);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 13);
@@ -64,8 +64,8 @@
             // 
             // button_listen
             // 
-            this.button_listen.Location = new System.Drawing.Point(242, 41);
-            this.button_listen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_listen.Location = new System.Drawing.Point(243, 45);
+            this.button_listen.Margin = new System.Windows.Forms.Padding(2);
             this.button_listen.Name = "button_listen";
             this.button_listen.Size = new System.Drawing.Size(56, 22);
             this.button_listen.TabIndex = 2;
@@ -88,15 +88,15 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(37, 102);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.Size = new System.Drawing.Size(40, 13);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Information:";
+            this.label4.Text = "Status:";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(252, 102);
+            this.label2.Location = new System.Drawing.Point(315, 102);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 12;
@@ -116,7 +116,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(252, 293);
+            this.label6.Location = new System.Drawing.Point(315, 293);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(152, 13);
             this.label6.TabIndex = 14;
@@ -126,15 +126,17 @@
             // 
             this.logs.Location = new System.Drawing.Point(40, 118);
             this.logs.Name = "logs";
-            this.logs.Size = new System.Drawing.Size(141, 137);
+            this.logs.ReadOnly = true;
+            this.logs.Size = new System.Drawing.Size(240, 137);
             this.logs.TabIndex = 18;
             this.logs.Text = "";
             // 
             // richTextBox_connectedUsers
             // 
-            this.richTextBox_connectedUsers.Location = new System.Drawing.Point(255, 118);
+            this.richTextBox_connectedUsers.Location = new System.Drawing.Point(318, 118);
             this.richTextBox_connectedUsers.Name = "richTextBox_connectedUsers";
-            this.richTextBox_connectedUsers.Size = new System.Drawing.Size(141, 137);
+            this.richTextBox_connectedUsers.ReadOnly = true;
+            this.richTextBox_connectedUsers.Size = new System.Drawing.Size(166, 137);
             this.richTextBox_connectedUsers.TabIndex = 19;
             this.richTextBox_connectedUsers.Text = "";
             // 
@@ -142,15 +144,17 @@
             // 
             this.richTextBox_IF100Subscribers.Location = new System.Drawing.Point(40, 309);
             this.richTextBox_IF100Subscribers.Name = "richTextBox_IF100Subscribers";
-            this.richTextBox_IF100Subscribers.Size = new System.Drawing.Size(141, 137);
+            this.richTextBox_IF100Subscribers.ReadOnly = true;
+            this.richTextBox_IF100Subscribers.Size = new System.Drawing.Size(166, 137);
             this.richTextBox_IF100Subscribers.TabIndex = 20;
             this.richTextBox_IF100Subscribers.Text = "";
             // 
             // richTextBox_SPS101Subscribers
             // 
-            this.richTextBox_SPS101Subscribers.Location = new System.Drawing.Point(255, 309);
+            this.richTextBox_SPS101Subscribers.Location = new System.Drawing.Point(318, 309);
             this.richTextBox_SPS101Subscribers.Name = "richTextBox_SPS101Subscribers";
-            this.richTextBox_SPS101Subscribers.Size = new System.Drawing.Size(141, 137);
+            this.richTextBox_SPS101Subscribers.ReadOnly = true;
+            this.richTextBox_SPS101Subscribers.Size = new System.Drawing.Size(166, 137);
             this.richTextBox_SPS101Subscribers.TabIndex = 21;
             this.richTextBox_SPS101Subscribers.Text = "";
             // 
@@ -158,7 +162,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 477);
+            this.ClientSize = new System.Drawing.Size(502, 477);
             this.Controls.Add(this.richTextBox_SPS101Subscribers);
             this.Controls.Add(this.richTextBox_IF100Subscribers);
             this.Controls.Add(this.richTextBox_connectedUsers);
@@ -171,7 +175,7 @@
             this.Controls.Add(this.button_listen);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox_port);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

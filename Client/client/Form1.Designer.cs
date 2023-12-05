@@ -106,7 +106,8 @@
             this.richTextBox_IF100.Location = new System.Drawing.Point(33, 207);
             this.richTextBox_IF100.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox_IF100.Name = "richTextBox_IF100";
-            this.richTextBox_IF100.Size = new System.Drawing.Size(232, 261);
+            this.richTextBox_IF100.ReadOnly = true;
+            this.richTextBox_IF100.Size = new System.Drawing.Size(290, 261);
             this.richTextBox_IF100.TabIndex = 5;
             this.richTextBox_IF100.Text = "";
             // 
@@ -116,7 +117,7 @@
             this.textBox_messageIF100.Location = new System.Drawing.Point(87, 492);
             this.textBox_messageIF100.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_messageIF100.Name = "textBox_messageIF100";
-            this.textBox_messageIF100.Size = new System.Drawing.Size(109, 20);
+            this.textBox_messageIF100.Size = new System.Drawing.Size(163, 20);
             this.textBox_messageIF100.TabIndex = 6;
             // 
             // label3
@@ -169,7 +170,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(393, 158);
+            this.label7.Location = new System.Drawing.Point(501, 158);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 13);
             this.label7.TabIndex = 13;
@@ -178,10 +179,11 @@
             // 
             // richTextBox_SPS101
             // 
-            this.richTextBox_SPS101.Location = new System.Drawing.Point(326, 207);
+            this.richTextBox_SPS101.Location = new System.Drawing.Point(434, 207);
             this.richTextBox_SPS101.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox_SPS101.Name = "richTextBox_SPS101";
-            this.richTextBox_SPS101.Size = new System.Drawing.Size(236, 261);
+            this.richTextBox_SPS101.ReadOnly = true;
+            this.richTextBox_SPS101.Size = new System.Drawing.Size(290, 261);
             this.richTextBox_SPS101.TabIndex = 14;
             this.richTextBox_SPS101.Text = "";
             // 
@@ -201,7 +203,7 @@
             // 
             this.checkBox_SPS101.AutoSize = true;
             this.checkBox_SPS101.Enabled = false;
-            this.checkBox_SPS101.Location = new System.Drawing.Point(340, 185);
+            this.checkBox_SPS101.Location = new System.Drawing.Point(448, 185);
             this.checkBox_SPS101.Name = "checkBox_SPS101";
             this.checkBox_SPS101.Size = new System.Drawing.Size(73, 17);
             this.checkBox_SPS101.TabIndex = 16;
@@ -212,7 +214,7 @@
             // button_sendSPS101
             // 
             this.button_sendSPS101.Enabled = false;
-            this.button_sendSPS101.Location = new System.Drawing.Point(497, 487);
+            this.button_sendSPS101.Location = new System.Drawing.Point(659, 487);
             this.button_sendSPS101.Margin = new System.Windows.Forms.Padding(2);
             this.button_sendSPS101.Name = "button_sendSPS101";
             this.button_sendSPS101.Size = new System.Drawing.Size(65, 21);
@@ -224,7 +226,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(327, 491);
+            this.label8.Location = new System.Drawing.Point(435, 491);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(53, 13);
@@ -234,10 +236,10 @@
             // textBox_messageSPS101
             // 
             this.textBox_messageSPS101.Enabled = false;
-            this.textBox_messageSPS101.Location = new System.Drawing.Point(384, 488);
+            this.textBox_messageSPS101.Location = new System.Drawing.Point(492, 488);
             this.textBox_messageSPS101.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_messageSPS101.Name = "textBox_messageSPS101";
-            this.textBox_messageSPS101.Size = new System.Drawing.Size(109, 20);
+            this.textBox_messageSPS101.Size = new System.Drawing.Size(163, 20);
             this.textBox_messageSPS101.TabIndex = 17;
             // 
             // logs
@@ -245,7 +247,8 @@
             this.logs.Location = new System.Drawing.Point(424, 44);
             this.logs.Margin = new System.Windows.Forms.Padding(2);
             this.logs.Name = "logs";
-            this.logs.Size = new System.Drawing.Size(129, 81);
+            this.logs.ReadOnly = true;
+            this.logs.Size = new System.Drawing.Size(286, 85);
             this.logs.TabIndex = 20;
             this.logs.Text = "";
             // 
@@ -262,7 +265,7 @@
             // button_sendIF100
             // 
             this.button_sendIF100.Enabled = false;
-            this.button_sendIF100.Location = new System.Drawing.Point(200, 492);
+            this.button_sendIF100.Location = new System.Drawing.Point(258, 492);
             this.button_sendIF100.Margin = new System.Windows.Forms.Padding(2);
             this.button_sendIF100.Name = "button_sendIF100";
             this.button_sendIF100.Size = new System.Drawing.Size(65, 21);
@@ -275,7 +278,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 533);
+            this.ClientSize = new System.Drawing.Size(747, 552);
             this.Controls.Add(this.button_sendIF100);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.logs);

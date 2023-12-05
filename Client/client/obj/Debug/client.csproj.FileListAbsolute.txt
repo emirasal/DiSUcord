@@ -26,3 +26,13 @@ C:\Users\Emir\source\repos\CS408 Project\Client\client\obj\Debug\client.csproj.G
 C:\Users\Emir\source\repos\CS408 Project\Client\client\obj\Debug\client.csproj.CoreCompileInputs.cache
 C:\Users\Emir\source\repos\CS408 Project\Client\client\obj\Debug\client.exe
 C:\Users\Emir\source\repos\CS408 Project\Client\client\obj\Debug\client.pdb
+C:\Users\Emir\source\repos\DiSUcord\Client\client\bin\Debug\client.exe.config
+C:\Users\Emir\source\repos\DiSUcord\Client\client\bin\Debug\client.exe
+C:\Users\Emir\source\repos\DiSUcord\Client\client\bin\Debug\client.pdb
+C:\Users\Emir\source\repos\DiSUcord\Client\client\obj\Debug\client.csproj.AssemblyReference.cache
+C:\Users\Emir\source\repos\DiSUcord\Client\client\obj\Debug\client.Form1.resources
+C:\Users\Emir\source\repos\DiSUcord\Client\client\obj\Debug\client.Properties.Resources.resources
+C:\Users\Emir\source\repos\DiSUcord\Client\client\obj\Debug\client.csproj.GenerateResource.cache
+C:\Users\Emir\source\repos\DiSUcord\Client\client\obj\Debug\client.csproj.CoreCompileInputs.cache
+C:\Users\Emir\source\repos\DiSUcord\Client\client\obj\Debug\client.exe
+C:\Users\Emir\source\repos\DiSUcord\Client\client\obj\Debug\client.pdb

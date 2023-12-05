@@ -23,3 +23,13 @@ C:\Users\Emir\source\repos\CS408 Project\Server\server\obj\Debug\server.csproj.G
 C:\Users\Emir\source\repos\CS408 Project\Server\server\obj\Debug\server.csproj.CoreCompileInputs.cache
 C:\Users\Emir\source\repos\CS408 Project\Server\server\obj\Debug\server.exe
 C:\Users\Emir\source\repos\CS408 Project\Server\server\obj\Debug\server.pdb
+C:\Users\Emir\source\repos\DiSUcord\Server\server\bin\Debug\server.exe.config
+C:\Users\Emir\source\repos\DiSUcord\Server\server\bin\Debug\server.exe
+C:\Users\Emir\source\repos\DiSUcord\Server\server\bin\Debug\server.pdb
+C:\Users\Emir\source\repos\DiSUcord\Server\server\obj\Debug\server.csproj.AssemblyReference.cache
+C:\Users\Emir\source\repos\DiSUcord\Server\server\obj\Debug\server.Form1.resources
+C:\Users\Emir\source\repos\DiSUcord\Server\server\obj\Debug\server.Properties.Resources.resources
+C:\Users\Emir\source\repos\DiSUcord\Server\server\obj\Debug\server.csproj.GenerateResource.cache
+C:\Users\Emir\source\repos\DiSUcord\Server\server\obj\Debug\server.csproj.CoreCompileInputs.cache
+C:\Users\Emir\source\repos\DiSUcord\Server\server\obj\Debug\server.exe
+C:\Users\Emir\source\repos\DiSUcord\Server\server\obj\Debug\server.pdb

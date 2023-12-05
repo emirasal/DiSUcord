@@ -18,6 +18,7 @@ namespace client
         bool terminating = false;
         bool connected = false;
         Socket clientSocket;
+        string username;
 
         public Form1()
         {
@@ -38,15 +39,15 @@ namespace client
                 {
                     clientSocket.Connect(IP, portNum);
                     button_connect.Enabled = false;
-                    textBox_messageIF100.Enabled = true;
-                    button_sendIF100.Enabled = true;
+                    
+                    
                     connected = true;
                     checkBox_IF100.Enabled = true;
                     checkBox_SPS101.Enabled = true;
                     logs.AppendText("Connected to the server!\n");
 
                     // Sending Username
-                    string username = textBox_username.Text;
+                    username = textBox_username.Text;
                     byte[] usernameData = Encoding.ASCII.GetBytes(username);
                     clientSocket.Send(usernameData);
 
@@ -78,7 +79,17 @@ namespace client
                     string incomingMessage = Encoding.Default.GetString(buffer);
                     incomingMessage = incomingMessage.Substring(0, incomingMessage.IndexOf("\0"));
 
-                    logs.AppendText("Server: " + incomingMessage + "\n");
+                    string roomName = incomingMessage.Substring(0, 6);
+                    string message = incomingMessage.Substring(6);
+                    // Distingusing between channels after the message is recieved
+                    logs.AppendText(roomName);
+                    if (roomName == "SPS101")
+                    {
+                        richTextBox_SPS101.AppendText(message);
+                    } else
+                    {
+                        richTextBox_IF100.AppendText(message);
+                    }
                 }
                 catch
                 {
@@ -114,7 +125,7 @@ namespace client
             }
             catch
             {
-                logs.AppendText("Server Error");
+                logs.AppendText("Server Error\n");
                 return false;
             }
         }
@@ -155,11 +166,6 @@ namespace client
 
         }
 
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void label_disconnected_Click(object sender, EventArgs e)
         {
 
@@ -176,19 +182,21 @@ namespace client
 
             if (checkBox.Checked)
             {
-                bool success = Convert_and_Send("Server, subscribe me to IF100");
-                if (success)
+                if (Convert_and_Send("Server, subscribe me to IF100"))
                 {
-                    logs.AppendText("You've subscribed to channel IF100");
+                    textBox_messageIF100.Enabled = true;
+                    button_sendIF100.Enabled = true;
+                    logs.AppendText("You've subscribed to channel IF100\n");
                 }
                 else checkBox.Checked = false;
             }   
             else
             {
-                bool success = Convert_and_Send("Server, unsubscribe me from IF100");
-                if (success)
+                if (Convert_and_Send("Server, unsubscribe me from IF100"))
                 {
-                    logs.AppendText("You've unsubscribed from channel IF100");
+                    textBox_messageIF100.Enabled = false;
+                    button_sendIF100.Enabled = false;
+                    logs.AppendText("You've unsubscribed from channel IF100\n");
                 }
                 else checkBox.Checked = true;
             }
@@ -200,19 +208,21 @@ namespace client
 
             if (checkBox.Checked)
             {
-                bool success = Convert_and_Send("Server, subscribe me to SPS101");
-                if (success)
+                if (Convert_and_Send("Server, subscribe me to SPS101"))
                 {
-                    logs.AppendText("You've subscribed to channel SPS101");
+                    textBox_messageSPS101.Enabled = true;
+                    button_sendSPS101.Enabled = true;
+                    logs.AppendText("You've subscribed to channel SPS101\n");
                 }
                 else checkBox.Checked = false;
             }
             else
             {
-                bool success = Convert_and_Send("Server, unsubscribe me from SPS101");
-                if (success)
+                if (Convert_and_Send("Server, unsubscribe me from SPS101"))
                 {
-                    logs.AppendText("You've unsubscribed from channel SPS101");
+                    textBox_messageSPS101.Enabled = false;
+                    button_sendSPS101.Enabled = false;
+                    logs.AppendText("You've unsubscribed from channel SPS101\n");
                 }
                 else checkBox.Checked = true;
             }
@@ -220,8 +230,8 @@ namespace client
 
         private void button_sendSPS101_Click(object sender, EventArgs e)
         {
-            string message = "SPS101" + textBox_messageIF100.Text;
-
+            string message = "SPS101" + textBox_messageSPS101.Text + "\n";
+            
             if (message != "" && message.Length <= 64)
             {
                 Byte[] buffer = Encoding.Default.GetBytes(message);
@@ -231,7 +241,7 @@ namespace client
 
         private void button_sendIF100_Click(object sender, EventArgs e)
         {
-            string message = "IF100" + textBox_messageSPS101.Text;
+            string message = "IF100 " + textBox_messageIF100.Text + "\n";
 
             if (message != "" && message.Length <= 64)
             {
