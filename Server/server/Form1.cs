@@ -57,6 +57,15 @@ namespace server
             }
         }
 
+        private void Display_Username_List(List<User> users, RichTextBox textBox)
+        {
+            textBox.Clear();
+            foreach (User user in users)
+            {
+                textBox.AppendText(user.username + "\n");
+            }
+        }
+
         private void button_listen_Click(object sender, EventArgs e)
         {
             int serverPort;
@@ -95,13 +104,27 @@ namespace server
                     byte[] usernameBuffer = new byte[newClient.SendBufferSize];
                     int usernameBytes = newClient.Receive(usernameBuffer);
                     string name = Encoding.Default.GetString(usernameBuffer, 0, usernameBytes);
-                    logs.AppendText("A user connected: " + name + "\n");
 
-                    User newUser = new User {socket = newClient, username = name};
-                    connectedUsers.Add(newUser);
+                    // Checking for duplicate usernames
+                    if (connectedUsers.Any(user => user.username == name))
+                    {
+                        // name is in the list (Problem)
+                        Convert_and_Send(newClient, "Duplicate username");
+                    }
+                    else
+                    {
+                        // name is not in the list
+                        logs.AppendText("User connected: " + name + "\n");
+                        User newUser = new User { socket = newClient, username = name };
+                        connectedUsers.Add(newUser);
 
-                    Thread receiveThread = new Thread(() => Receive(newUser));
-                    receiveThread.Start();
+                        Thread receiveThread = new Thread(() => Receive(newUser));
+                        receiveThread.Start();
+
+                        // Updating the connected users list
+                        Display_Username_List(connectedUsers, richTextBox_connectedUsers);
+                    }
+                    
                 }
                 catch
                 {
@@ -131,22 +154,43 @@ namespace server
                     string incomingMessage = Encoding.Default.GetString(buffer);
                     incomingMessage = incomingMessage.Substring(0, incomingMessage.IndexOf("\0"));
 
-                    
-
                     // Distingusing Between Message and Subscription Change
                     if (incomingMessage == "Server, subscribe me to IF100")
                     {
                         IF100Subscribers.Add(thisClient);
+                        logs.AppendText(thisClient.username + " subscribed to channel IF 100\n");
+                        Display_Username_List(IF100Subscribers, richTextBox_IF100Subscribers);
                     } else if (incomingMessage == "Server, unsubscribe me from IF100")
                     {
                         IF100Subscribers.Remove(thisClient);
+                        logs.AppendText(thisClient.username + " unsubscribed from channel IF 100\n");
+                        Display_Username_List(IF100Subscribers, richTextBox_IF100Subscribers);
                     } else if (incomingMessage == "Server, subscribe me to SPS101")
                     {
                         SPS101Subscribers.Add(thisClient);
+                        logs.AppendText(thisClient.username + " subscribed to channel SPS 101\n");
+                        Display_Username_List(SPS101Subscribers, richTextBox_SPS101Subscribers);
                     } else if (incomingMessage == "Server, unsubscribe me from SPS101")
                     {
                         SPS101Subscribers.Remove(thisClient);
-                    } else
+                        logs.AppendText(thisClient.username + " unsubscribed from channel SPS 101\n");
+                        Display_Username_List(SPS101Subscribers, richTextBox_SPS101Subscribers);
+                    } else if (incomingMessage == "Server, disconnect me")
+                    {
+                        // Removing the disconnected user from all lists
+                        connectedUsers.Remove(thisClient);
+                        IF100Subscribers.Remove(thisClient);
+                        SPS101Subscribers.Remove(thisClient);
+                        logs.AppendText("User disconnected: " + thisClient.username + "\n");
+
+                        // Updating the information boxes
+                        Display_Username_List(connectedUsers, richTextBox_connectedUsers);
+                        Display_Username_List(IF100Subscribers, richTextBox_IF100Subscribers);
+                        Display_Username_List(SPS101Subscribers, richTextBox_SPS101Subscribers);
+
+                        thisClient.socket.Close();
+                    } 
+                    else
                     {
                         // It's a regular message
                         string Room = incomingMessage.Substring(0, 6);
@@ -155,20 +199,22 @@ namespace server
                         if (Room == "SPS101")
                         {
                             // Sending the message to everyone subscribed to SPS101
+                            string MessageToSend = Room + thisClient.username + ": " + Message;
                             foreach (User subscriber in SPS101Subscribers)
                             {
-                                string MessageToSend = Room + thisClient.username + ": " + Message;
                                 Convert_and_Send(subscriber.socket, MessageToSend);
                             }
+                            logs.AppendText("Channel SPS 101 -> " + MessageToSend);
                         }
                         else
                         {
                             // Sending the message to everyone subscribed to IF100
+                            string MessageToSend = Room + thisClient.username + ": " + Message;
                             foreach (User subscriber in IF100Subscribers)
-                            {
-                                string MessageToSend = Room + thisClient.username + ": " + Message;
+                            { 
                                 Convert_and_Send(subscriber.socket, MessageToSend);
                             }
+                            logs.AppendText("Channel IF 100 -> " + MessageToSend);
                         }
                     }
 
@@ -224,6 +270,11 @@ namespace server
         }
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }

@@ -50,6 +50,7 @@
             this.logs = new System.Windows.Forms.RichTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.button_sendIF100 = new System.Windows.Forms.Button();
+            this.button_disconnect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -92,13 +93,14 @@
             // 
             // button_connect
             // 
-            this.button_connect.Location = new System.Drawing.Point(288, 78);
+            this.button_connect.BackColor = System.Drawing.SystemColors.Control;
+            this.button_connect.Location = new System.Drawing.Point(230, 78);
             this.button_connect.Margin = new System.Windows.Forms.Padding(2);
             this.button_connect.Name = "button_connect";
             this.button_connect.Size = new System.Drawing.Size(70, 22);
             this.button_connect.TabIndex = 4;
             this.button_connect.Text = "connect";
-            this.button_connect.UseVisualStyleBackColor = true;
+            this.button_connect.UseVisualStyleBackColor = false;
             this.button_connect.Click += new System.EventHandler(this.button_connect_Click);
             // 
             // richTextBox_IF100
@@ -133,7 +135,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(224, 9);
+            this.label4.Location = new System.Drawing.Point(327, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 13);
             this.label4.TabIndex = 9;
@@ -160,7 +162,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(101, 158);
+            this.label6.Location = new System.Drawing.Point(147, 158);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(79, 13);
             this.label6.TabIndex = 12;
@@ -170,7 +172,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(501, 158);
+            this.label7.Location = new System.Drawing.Point(547, 158);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 13);
             this.label7.TabIndex = 13;
@@ -248,7 +250,7 @@
             this.logs.Margin = new System.Windows.Forms.Padding(2);
             this.logs.Name = "logs";
             this.logs.ReadOnly = true;
-            this.logs.Size = new System.Drawing.Size(286, 85);
+            this.logs.Size = new System.Drawing.Size(300, 85);
             this.logs.TabIndex = 20;
             this.logs.Text = "";
             // 
@@ -274,11 +276,25 @@
             this.button_sendIF100.UseVisualStyleBackColor = true;
             this.button_sendIF100.Click += new System.EventHandler(this.button_sendIF100_Click);
             // 
+            // button_disconnect
+            // 
+            this.button_disconnect.BackColor = System.Drawing.SystemColors.Control;
+            this.button_disconnect.Enabled = false;
+            this.button_disconnect.Location = new System.Drawing.Point(318, 78);
+            this.button_disconnect.Margin = new System.Windows.Forms.Padding(2);
+            this.button_disconnect.Name = "button_disconnect";
+            this.button_disconnect.Size = new System.Drawing.Size(70, 22);
+            this.button_disconnect.TabIndex = 23;
+            this.button_disconnect.Text = "disconnect";
+            this.button_disconnect.UseVisualStyleBackColor = false;
+            this.button_disconnect.Click += new System.EventHandler(this.button_disconnect_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(747, 552);
+            this.Controls.Add(this.button_disconnect);
             this.Controls.Add(this.button_sendIF100);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.logs);
@@ -333,6 +349,7 @@
         private System.Windows.Forms.RichTextBox logs;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button_sendIF100;
+        private System.Windows.Forms.Button button_disconnect;
     }
 }
 

@@ -38,19 +38,19 @@ namespace client
                 try
                 {
                     clientSocket.Connect(IP, portNum);
-                    button_connect.Enabled = false;
-                    
-                    
                     connected = true;
+                    button_connect.Enabled = false;
+                    button_disconnect.Enabled = true;
                     checkBox_IF100.Enabled = true;
                     checkBox_SPS101.Enabled = true;
-                    logs.AppendText("Connected to the server!\n");
+                    logs.AppendText("You have connected to the server!\n");
 
-                    // Sending Username
+                    // Sending the Username
                     username = textBox_username.Text;
                     byte[] usernameData = Encoding.ASCII.GetBytes(username);
                     clientSocket.Send(usernameData);
 
+                    // Inside the thread first we will check for the duplicate username
                     Thread receiveThread = new Thread(Receive);
                     receiveThread.Start();
 
@@ -79,17 +79,33 @@ namespace client
                     string incomingMessage = Encoding.Default.GetString(buffer);
                     incomingMessage = incomingMessage.Substring(0, incomingMessage.IndexOf("\0"));
 
-                    string roomName = incomingMessage.Substring(0, 6);
-                    string message = incomingMessage.Substring(6);
-                    // Distingusing between channels after the message is recieved
-                    logs.AppendText(roomName);
-                    if (roomName == "SPS101")
+                    // Checking for duplicate usernames first
+                    if (incomingMessage == "Duplicate username")
                     {
-                        richTextBox_SPS101.AppendText(message);
-                    } else
-                    {
-                        richTextBox_IF100.AppendText(message);
+                        logs.AppendText("Duplicate username, disconnecting from the server");
+                        button_connect.Enabled = true;
+                        button_disconnect.Enabled = false;
+                        checkBox_IF100.Enabled = false;
+                        checkBox_SPS101.Enabled = false;
+                        connected = false;
                     }
+                    else
+                    {             
+                        // Handling recieved messages:
+
+                        string roomName = incomingMessage.Substring(0, 6);
+                        string message = incomingMessage.Substring(6);
+                        // Distingusing between channels after the message is recieved
+                        if (roomName == "SPS101")
+                        {
+                            richTextBox_SPS101.AppendText(message);
+                        }
+                        else
+                        {
+                            richTextBox_IF100.AppendText(message);
+                        }
+                    }
+                    
                 }
                 catch
                 {
@@ -97,6 +113,7 @@ namespace client
                     {
                         logs.AppendText("The server has disconnected\n");
                         button_connect.Enabled = true;
+                        button_disconnect.Enabled = false;
                         textBox_messageIF100.Enabled = false;
                         button_sendIF100.Enabled = false;
                     }
@@ -110,24 +127,46 @@ namespace client
 
         private void Form1_FormClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            connected = false;
+            // First we let the server know we are disconnecting
+            disconnect();
+
             terminating = true;
             Environment.Exit(0);
         }
 
+        private void disconnect()
+        {
+            Convert_and_Send("Server, disconnect me");
+            connected = false;
+            button_connect.Enabled = true;
+            button_disconnect.Enabled = false;
+            checkBox_IF100.Enabled = false;
+            checkBox_SPS101.Enabled = false;
+
+            // We also need to make sure to disable the chat fields (similar to unsubscribe)
+            textBox_messageIF100.Enabled = false;
+            button_sendIF100.Enabled = false;
+            textBox_messageSPS101.Enabled = false;
+            button_sendSPS101.Enabled = false;
+        }
+
         private bool Convert_and_Send(string message)
         {
-            byte[] messageBytes = Encoding.Default.GetBytes(message);
-            try
+            if (message.Length <= 64)
             {
-                clientSocket.Send(messageBytes);
-                return true;
+                byte[] messageBytes = Encoding.Default.GetBytes(message);
+                try
+                {
+                    clientSocket.Send(messageBytes);
+                    return true;
+                }
+                catch
+                {
+                    logs.AppendText("Server Error\n");
+                }
             }
-            catch
-            {
-                logs.AppendText("Server Error\n");
-                return false;
-            }
+            return false;
+            
         }
 
         private void button_send_Click(object sender, EventArgs e)
@@ -231,23 +270,21 @@ namespace client
         private void button_sendSPS101_Click(object sender, EventArgs e)
         {
             string message = "SPS101" + textBox_messageSPS101.Text + "\n";
-            
-            if (message != "" && message.Length <= 64)
-            {
-                Byte[] buffer = Encoding.Default.GetBytes(message);
-                clientSocket.Send(buffer);
-            }
+            Convert_and_Send(message);
+            textBox_messageSPS101.Clear();
+
         }
 
         private void button_sendIF100_Click(object sender, EventArgs e)
         {
             string message = "IF100 " + textBox_messageIF100.Text + "\n";
+            Convert_and_Send(message);
+            textBox_messageIF100.Clear();
+        }
 
-            if (message != "" && message.Length <= 64)
-            {
-                Byte[] buffer = Encoding.Default.GetBytes(message);
-                clientSocket.Send(buffer);
-            }
+        private void button_disconnect_Click(object sender, EventArgs e)
+        {
+            disconnect();
         }
     }
 }
