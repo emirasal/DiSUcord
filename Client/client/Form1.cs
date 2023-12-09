@@ -109,17 +109,7 @@ namespace client
                 }
                 catch
                 {
-                    if (!terminating)
-                    {
-                        logs.AppendText("The server has disconnected\n");
-                        button_connect.Enabled = true;
-                        button_disconnect.Enabled = false;
-                        textBox_messageIF100.Enabled = false;
-                        button_sendIF100.Enabled = false;
-                    }
-
-                    clientSocket.Close();
-                    connected = false;
+                    disconnect();
                 }
 
             }
@@ -148,6 +138,13 @@ namespace client
             button_sendIF100.Enabled = false;
             textBox_messageSPS101.Enabled = false;
             button_sendSPS101.Enabled = false;
+
+            // Unchecking the subscribtion boxes if necessray
+            checkBox_IF100.Checked = false;
+            checkBox_SPS101.Checked = false;
+
+            clientSocket.Close();
+            logs.AppendText("You have been disconnected.\n");
         }
 
         private bool Convert_and_Send(string message)
@@ -167,52 +164,6 @@ namespace client
             }
             return false;
             
-        }
-
-        private void button_send_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void textBox_ip_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_disconnected_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click_1(object sender, EventArgs e)
-        {
-
         }
 
         private void checkBox_IF100_CheckedChanged(object sender, EventArgs e)

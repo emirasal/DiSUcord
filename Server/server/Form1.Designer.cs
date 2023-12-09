@@ -49,7 +49,6 @@
             this.textBox_port.Name = "textBox_port";
             this.textBox_port.Size = new System.Drawing.Size(64, 20);
             this.textBox_port.TabIndex = 0;
-            this.textBox_port.TextChanged += new System.EventHandler(this.textBox_port_TextChanged);
             // 
             // label1
             // 
@@ -60,7 +59,6 @@
             this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Port:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button_listen
             // 
@@ -81,7 +79,6 @@
             this.label3.Size = new System.Drawing.Size(93, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "DiSUcord - Server";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -91,7 +88,6 @@
             this.label4.Size = new System.Drawing.Size(96, 13);
             this.label4.TabIndex = 8;
             this.label4.Text = "Server Information:";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label2
             // 
@@ -101,7 +97,6 @@
             this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 12;
             this.label2.Text = "Connected users:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label5
             // 
@@ -111,7 +106,6 @@
             this.label5.Size = new System.Drawing.Size(135, 13);
             this.label5.TabIndex = 13;
             this.label5.Text = "Channel IF 100 Subcribers:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 
@@ -121,7 +115,6 @@
             this.label6.Size = new System.Drawing.Size(152, 13);
             this.label6.TabIndex = 14;
             this.label6.Text = "Channel SPS 101 Subscribers:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // logs
             // 
@@ -179,7 +172,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

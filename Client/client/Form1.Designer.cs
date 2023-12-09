@@ -62,7 +62,6 @@
             this.label1.Size = new System.Drawing.Size(20, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "IP:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -81,7 +80,6 @@
             this.textBox_ip.Name = "textBox_ip";
             this.textBox_ip.Size = new System.Drawing.Size(100, 20);
             this.textBox_ip.TabIndex = 2;
-            this.textBox_ip.TextChanged += new System.EventHandler(this.textBox_ip_TextChanged);
             // 
             // textBox_port
             // 
@@ -109,7 +107,7 @@
             this.richTextBox_IF100.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox_IF100.Name = "richTextBox_IF100";
             this.richTextBox_IF100.ReadOnly = true;
-            this.richTextBox_IF100.Size = new System.Drawing.Size(290, 261);
+            this.richTextBox_IF100.Size = new System.Drawing.Size(307, 261);
             this.richTextBox_IF100.TabIndex = 5;
             this.richTextBox_IF100.Text = "";
             // 
@@ -119,7 +117,7 @@
             this.textBox_messageIF100.Location = new System.Drawing.Point(87, 492);
             this.textBox_messageIF100.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_messageIF100.Name = "textBox_messageIF100";
-            this.textBox_messageIF100.Size = new System.Drawing.Size(163, 20);
+            this.textBox_messageIF100.Size = new System.Drawing.Size(184, 20);
             this.textBox_messageIF100.TabIndex = 6;
             // 
             // label3
@@ -140,7 +138,6 @@
             this.label4.Size = new System.Drawing.Size(88, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "DiSUcord - Client";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
@@ -150,7 +147,6 @@
             this.label5.Size = new System.Drawing.Size(58, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Username:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // textBox_username
             // 
@@ -167,25 +163,23 @@
             this.label6.Size = new System.Drawing.Size(79, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Channel IF 100";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(547, 158);
+            this.label7.Location = new System.Drawing.Point(532, 158);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 13);
             this.label7.TabIndex = 13;
             this.label7.Text = "Channel SPS 101";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // richTextBox_SPS101
             // 
-            this.richTextBox_SPS101.Location = new System.Drawing.Point(434, 207);
+            this.richTextBox_SPS101.Location = new System.Drawing.Point(417, 207);
             this.richTextBox_SPS101.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox_SPS101.Name = "richTextBox_SPS101";
             this.richTextBox_SPS101.ReadOnly = true;
-            this.richTextBox_SPS101.Size = new System.Drawing.Size(290, 261);
+            this.richTextBox_SPS101.Size = new System.Drawing.Size(307, 261);
             this.richTextBox_SPS101.TabIndex = 14;
             this.richTextBox_SPS101.Text = "";
             // 
@@ -205,7 +199,7 @@
             // 
             this.checkBox_SPS101.AutoSize = true;
             this.checkBox_SPS101.Enabled = false;
-            this.checkBox_SPS101.Location = new System.Drawing.Point(448, 185);
+            this.checkBox_SPS101.Location = new System.Drawing.Point(438, 185);
             this.checkBox_SPS101.Name = "checkBox_SPS101";
             this.checkBox_SPS101.Size = new System.Drawing.Size(73, 17);
             this.checkBox_SPS101.TabIndex = 16;
@@ -216,7 +210,7 @@
             // button_sendSPS101
             // 
             this.button_sendSPS101.Enabled = false;
-            this.button_sendSPS101.Location = new System.Drawing.Point(659, 487);
+            this.button_sendSPS101.Location = new System.Drawing.Point(659, 488);
             this.button_sendSPS101.Margin = new System.Windows.Forms.Padding(2);
             this.button_sendSPS101.Name = "button_sendSPS101";
             this.button_sendSPS101.Size = new System.Drawing.Size(65, 21);
@@ -228,7 +222,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(435, 491);
+            this.label8.Location = new System.Drawing.Point(414, 492);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(53, 13);
@@ -238,36 +232,35 @@
             // textBox_messageSPS101
             // 
             this.textBox_messageSPS101.Enabled = false;
-            this.textBox_messageSPS101.Location = new System.Drawing.Point(492, 488);
+            this.textBox_messageSPS101.Location = new System.Drawing.Point(471, 489);
             this.textBox_messageSPS101.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_messageSPS101.Name = "textBox_messageSPS101";
-            this.textBox_messageSPS101.Size = new System.Drawing.Size(163, 20);
+            this.textBox_messageSPS101.Size = new System.Drawing.Size(184, 20);
             this.textBox_messageSPS101.TabIndex = 17;
             // 
             // logs
             // 
-            this.logs.Location = new System.Drawing.Point(424, 44);
+            this.logs.Location = new System.Drawing.Point(417, 44);
             this.logs.Margin = new System.Windows.Forms.Padding(2);
             this.logs.Name = "logs";
             this.logs.ReadOnly = true;
-            this.logs.Size = new System.Drawing.Size(300, 85);
+            this.logs.Size = new System.Drawing.Size(307, 85);
             this.logs.TabIndex = 20;
             this.logs.Text = "";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(421, 29);
+            this.label9.Location = new System.Drawing.Point(414, 29);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(40, 13);
             this.label9.TabIndex = 21;
             this.label9.Text = "Status:";
-            this.label9.Click += new System.EventHandler(this.label9_Click_1);
             // 
             // button_sendIF100
             // 
             this.button_sendIF100.Enabled = false;
-            this.button_sendIF100.Location = new System.Drawing.Point(258, 492);
+            this.button_sendIF100.Location = new System.Drawing.Point(275, 491);
             this.button_sendIF100.Margin = new System.Windows.Forms.Padding(2);
             this.button_sendIF100.Name = "button_sendIF100";
             this.button_sendIF100.Size = new System.Drawing.Size(65, 21);

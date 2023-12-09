@@ -66,6 +66,22 @@ namespace server
             }
         }
 
+        private void disconnect(User userSocket)
+        {
+            // Removing the disconnected user from all lists
+            connectedUsers.Remove(userSocket);
+            IF100Subscribers.Remove(userSocket);
+            SPS101Subscribers.Remove(userSocket);
+            logs.AppendText("User disconnected: " + userSocket.username + "\n");
+
+            // Updating the information boxes
+            Display_Username_List(connectedUsers, richTextBox_connectedUsers);
+            Display_Username_List(IF100Subscribers, richTextBox_IF100Subscribers);
+            Display_Username_List(SPS101Subscribers, richTextBox_SPS101Subscribers);
+
+            userSocket.socket.Close();
+        }
+
         private void button_listen_Click(object sender, EventArgs e)
         {
             int serverPort;
@@ -177,18 +193,8 @@ namespace server
                         Display_Username_List(SPS101Subscribers, richTextBox_SPS101Subscribers);
                     } else if (incomingMessage == "Server, disconnect me")
                     {
-                        // Removing the disconnected user from all lists
-                        connectedUsers.Remove(thisClient);
-                        IF100Subscribers.Remove(thisClient);
-                        SPS101Subscribers.Remove(thisClient);
-                        logs.AppendText("User disconnected: " + thisClient.username + "\n");
-
-                        // Updating the information boxes
-                        Display_Username_List(connectedUsers, richTextBox_connectedUsers);
-                        Display_Username_List(IF100Subscribers, richTextBox_IF100Subscribers);
-                        Display_Username_List(SPS101Subscribers, richTextBox_SPS101Subscribers);
-
-                        thisClient.socket.Close();
+                        disconnect(thisClient);
+                        connected = false;
                     } 
                     else
                     {
@@ -204,7 +210,7 @@ namespace server
                             {
                                 Convert_and_Send(subscriber.socket, MessageToSend);
                             }
-                            logs.AppendText("Channel SPS 101 -> " + MessageToSend);
+                            logs.AppendText("Channel SPS 101 -> " + thisClient.username + ": " + Message);
                         }
                         else
                         {
@@ -214,19 +220,14 @@ namespace server
                             { 
                                 Convert_and_Send(subscriber.socket, MessageToSend);
                             }
-                            logs.AppendText("Channel IF 100 -> " + MessageToSend);
+                            logs.AppendText("Channel IF 100 -> " + thisClient.username + ": " + Message);
                         }
                     }
 
                 }
                 catch
                 {
-                    if(!terminating)
-                    {
-                        logs.AppendText("A client has disconnected\n");
-                    }
-                    thisClient.socket.Close();
-                    connectedUsers.Remove(thisClient);
+                    disconnect(thisClient);
                     connected = false;
                 }
             }
@@ -237,46 +238,6 @@ namespace server
             listening = false;
             terminating = true;
             Environment.Exit(0);
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox_port_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
