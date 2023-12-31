@@ -14,8 +14,6 @@ namespace client
 {
     public partial class Form1 : Form
     {
-
-        bool terminating = false;
         bool connected = false;
         Socket clientSocket;
         string username;
@@ -37,12 +35,13 @@ namespace client
             {
                 try
                 {
+                    // First we try to connect and change the buttons (if username is duplicate user gets disconnected)
                     clientSocket.Connect(IP, portNum);
                     connected = true;
                     button_connect.Enabled = false;
                     button_disconnect.Enabled = true;
-                    checkBox_IF100.Enabled = true;
-                    checkBox_SPS101.Enabled = true;
+                    button_subscribeIF100.Enabled = true;
+                    button_subscribeSPS101.Enabled = true;
                     logs.AppendText("You have connected to the server!\n");
 
                     // Sending the Username
@@ -82,17 +81,16 @@ namespace client
                     // Checking for duplicate usernames first
                     if (incomingMessage == "Duplicate username")
                     {
-                        logs.AppendText("Duplicate username, disconnecting from the server");
+                        logs.AppendText("Duplicate username, disconnecting from the server...\n");
                         button_connect.Enabled = true;
                         button_disconnect.Enabled = false;
-                        checkBox_IF100.Enabled = false;
-                        checkBox_SPS101.Enabled = false;
+                        button_subscribeSPS101.Enabled = false;
+                        button_subscribeIF100.Enabled = false;
                         connected = false;
                     }
                     else
                     {             
-                        // Handling recieved messages:
-
+                        // Handling recieved messages and assigning them the text box:
                         string roomName = incomingMessage.Substring(0, 6);
                         string message = incomingMessage.Substring(6);
                         // Distingusing between channels after the message is recieved
@@ -109,6 +107,7 @@ namespace client
                 }
                 catch
                 {
+                    // If anything goes wrong we disconnect the user 
                     disconnect();
                 }
 
@@ -117,21 +116,22 @@ namespace client
 
         private void Form1_FormClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // First we let the server know we are disconnecting
-            disconnect();
-
-            terminating = true;
+            // When we turn off the socket, Recieve function will iniate the disconnect function.
+            clientSocket.Close();
             Environment.Exit(0);
         }
 
         private void disconnect()
-        {
-            Convert_and_Send("Server, disconnect me");
+        {       
             connected = false;
             button_connect.Enabled = true;
             button_disconnect.Enabled = false;
-            checkBox_IF100.Enabled = false;
-            checkBox_SPS101.Enabled = false;
+
+            // Setting the subscription buttons to default
+            button_subscribeIF100.Enabled = false;
+            button_subscribeSPS101.Enabled = false;
+            button_unsubscribeIF100.Enabled = false;
+            button_unsubscribeSPS101.Enabled = false;
 
             // We also need to make sure to disable the chat fields (similar to unsubscribe)
             textBox_messageIF100.Enabled = false;
@@ -139,95 +139,38 @@ namespace client
             textBox_messageSPS101.Enabled = false;
             button_sendSPS101.Enabled = false;
 
-            // Unchecking the subscribtion boxes if necessray
-            checkBox_IF100.Checked = false;
-            checkBox_SPS101.Checked = false;
-
             clientSocket.Close();
             logs.AppendText("You have been disconnected.\n");
         }
 
-        private bool Convert_and_Send(string message)
+        private void Convert_and_Send(string message)
         {
+            // This function is implemented to make it easier to convert the strings and send it to the server
             if (message.Length <= 64)
             {
                 byte[] messageBytes = Encoding.Default.GetBytes(message);
                 try
                 {
                     clientSocket.Send(messageBytes);
-                    return true;
                 }
                 catch
                 {
-                    logs.AppendText("Server Error\n");
+                    disconnect();
                 }
-            }
-            return false;
-            
-        }
-
-        private void checkBox_IF100_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox checkBox = sender as CheckBox;
-
-            if (checkBox.Checked)
-            {
-                if (Convert_and_Send("Server, subscribe me to IF100"))
-                {
-                    textBox_messageIF100.Enabled = true;
-                    button_sendIF100.Enabled = true;
-                    logs.AppendText("You've subscribed to channel IF100\n");
-                }
-                else checkBox.Checked = false;
-            }   
-            else
-            {
-                if (Convert_and_Send("Server, unsubscribe me from IF100"))
-                {
-                    textBox_messageIF100.Enabled = false;
-                    button_sendIF100.Enabled = false;
-                    logs.AppendText("You've unsubscribed from channel IF100\n");
-                }
-                else checkBox.Checked = true;
-            }
-        }
-
-        private void checkBox_SPS101_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox checkBox = sender as CheckBox;
-
-            if (checkBox.Checked)
-            {
-                if (Convert_and_Send("Server, subscribe me to SPS101"))
-                {
-                    textBox_messageSPS101.Enabled = true;
-                    button_sendSPS101.Enabled = true;
-                    logs.AppendText("You've subscribed to channel SPS101\n");
-                }
-                else checkBox.Checked = false;
-            }
-            else
-            {
-                if (Convert_and_Send("Server, unsubscribe me from SPS101"))
-                {
-                    textBox_messageSPS101.Enabled = false;
-                    button_sendSPS101.Enabled = false;
-                    logs.AppendText("You've unsubscribed from channel SPS101\n");
-                }
-                else checkBox.Checked = true;
-            }
+            }       
         }
 
         private void button_sendSPS101_Click(object sender, EventArgs e)
         {
+            // Room keyword added at the beginning of the message so that the server will understand which room we are sending it to
             string message = "SPS101" + textBox_messageSPS101.Text + "\n";
             Convert_and_Send(message);
             textBox_messageSPS101.Clear();
-
         }
 
         private void button_sendIF100_Click(object sender, EventArgs e)
         {
+            // Room keyword added at the beginning of the message so that the server will understand which room we are sending it to
             string message = "IF100 " + textBox_messageIF100.Text + "\n";
             Convert_and_Send(message);
             textBox_messageIF100.Clear();
@@ -235,7 +178,58 @@ namespace client
 
         private void button_disconnect_Click(object sender, EventArgs e)
         {
-            disconnect();
+            // When we close the socket Recieve function will enter the catch block and terminate the connection
+            clientSocket.Close();
+        }
+
+        private void button_subscribeIF100_Click(object sender, EventArgs e)
+        {
+            // Special strings are used to subscribe or unsubscribe
+            Convert_and_Send("Server, subscribe me to IF100");
+
+            // Necessary button are arranged
+            textBox_messageIF100.Enabled = true;
+            button_sendIF100.Enabled = true;
+
+            button_subscribeIF100.Enabled = false;
+            button_unsubscribeIF100.Enabled = true;
+            logs.AppendText("You've subscribed to channel IF100\n");
+        }
+
+        private void button_unsubscribeIF100_Click(object sender, EventArgs e)
+        {
+            Convert_and_Send("Server, unsubscribe me from IF100");
+
+            textBox_messageIF100.Enabled = false;
+            button_sendIF100.Enabled = false;
+
+            button_subscribeIF100.Enabled = true;
+            button_unsubscribeIF100.Enabled = false;
+            logs.AppendText("You've unsubscribed from channel IF100\n");
+        }
+
+        private void buton_subscribeSPS101_Click(object sender, EventArgs e)
+        {
+            Convert_and_Send("Server, subscribe me to SPS101");
+            // If cannot send the message, the code does not pass here
+            textBox_messageSPS101.Enabled = true;
+            button_sendSPS101.Enabled = true;
+
+            button_subscribeSPS101.Enabled = false;
+            button_unsubscribeSPS101.Enabled = true;
+            logs.AppendText("You've subscribed to channel SPS101\n");
+        }
+
+        private void button_unsubscribeSPS101_Click(object sender, EventArgs e)
+        {
+            Convert_and_Send("Server, unsubscribe me from SPS101");
+
+            textBox_messageSPS101.Enabled = false;
+            button_sendSPS101.Enabled = false;
+
+            button_subscribeSPS101.Enabled = true;
+            button_unsubscribeSPS101.Enabled = false;
+            logs.AppendText("You've unsubscribed from channel SPS101\n");
         }
     }
 }

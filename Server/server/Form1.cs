@@ -15,7 +15,6 @@ namespace server
 {
     public partial class Form1 : Form
     {
-
         Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         struct User
@@ -28,8 +27,8 @@ namespace server
         List<User> IF100Subscribers = new List<User>();
         List<User> SPS101Subscribers = new List<User>();
 
-        bool terminating = false;
-        bool listening = false;
+        bool terminating = false; // Checks if is shut down
+        bool listening = false;   // Checks is server can accept new connections
 
         public Form1()
         {
@@ -38,27 +37,28 @@ namespace server
             InitializeComponent();
         }
 
-        private bool Convert_and_Send(Socket socket, string message)
+        private void Convert_and_Send(Socket socket, string message)
         {
+            // This function is implemented to make it easier to convert the strings and send it to the socket
             byte[] messageBytes = Encoding.Default.GetBytes(message);
             try
             {
                 socket.Send(messageBytes);
-                return true;
             }
             catch
             {
                 logs.AppendText("There is a problem! Check the connection...\n");
                 terminating = true;
+                listening = false;
                 textBox_port.Enabled = true;
                 button_listen.Enabled = true;
                 serverSocket.Close();
-                return false;
             }
         }
 
         private void Display_Username_List(List<User> users, RichTextBox textBox)
         {
+            // With every change the boxes are written from the beginning.
             textBox.Clear();
             foreach (User user in users)
             {
@@ -66,6 +66,7 @@ namespace server
             }
         }
 
+        // This function will be called inside Recieve when anything goes wrong with the socket
         private void disconnect(User userSocket)
         {
             // Removing the disconnected user from all lists
@@ -90,7 +91,7 @@ namespace server
             {
                 IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, serverPort);
                 serverSocket.Bind(endPoint);
-                serverSocket.Listen(3);
+                serverSocket.Listen(30);
 
                 listening = true;
                 button_listen.Enabled = false;
@@ -103,7 +104,7 @@ namespace server
             }
             else
             {
-                logs.AppendText("Please check port number! \n");
+                logs.AppendText("Please check the port number! \n");
             }
         }
 
@@ -124,7 +125,7 @@ namespace server
                     // Checking for duplicate usernames
                     if (connectedUsers.Any(user => user.username == name))
                     {
-                        // name is in the list (Problem)
+                        // name is in the list (Problem), we will let the user know and not connect
                         Convert_and_Send(newClient, "Duplicate username");
                     }
                     else
@@ -159,6 +160,7 @@ namespace server
 
         private void Receive(User thisClient)
         {
+            // This variable is speacial to every user
             bool connected = true;
 
             while(connected && !terminating)
@@ -171,6 +173,7 @@ namespace server
                     incomingMessage = incomingMessage.Substring(0, incomingMessage.IndexOf("\0"));
 
                     // Distingusing Between Message and Subscription Change
+                    // User's requests sent as a text and processed here
                     if (incomingMessage == "Server, subscribe me to IF100")
                     {
                         IF100Subscribers.Add(thisClient);
@@ -191,17 +194,13 @@ namespace server
                         SPS101Subscribers.Remove(thisClient);
                         logs.AppendText(thisClient.username + " unsubscribed from channel SPS 101\n");
                         Display_Username_List(SPS101Subscribers, richTextBox_SPS101Subscribers);
-                    } else if (incomingMessage == "Server, disconnect me")
-                    {
-                        disconnect(thisClient);
-                        connected = false;
-                    } 
-                    else
+                    } else
                     {
                         // It's a regular message
                         string Room = incomingMessage.Substring(0, 6);
                         string Message = incomingMessage.Substring(6);           
 
+                        // When message is recieved we redirect them to correct subscriptions.
                         if (Room == "SPS101")
                         {
                             // Sending the message to everyone subscribed to SPS101
@@ -227,6 +226,7 @@ namespace server
                 }
                 catch
                 {
+                    // When problem occurs with the client socket we iniate the disconnection
                     disconnect(thisClient);
                     connected = false;
                 }
@@ -237,6 +237,7 @@ namespace server
         {
             listening = false;
             terminating = true;
+            // Users will understand that they've disconnected when server socket no longer exist.
             Environment.Exit(0);
         }
     }

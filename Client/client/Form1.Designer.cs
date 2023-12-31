@@ -42,8 +42,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.richTextBox_SPS101 = new System.Windows.Forms.RichTextBox();
-            this.checkBox_IF100 = new System.Windows.Forms.CheckBox();
-            this.checkBox_SPS101 = new System.Windows.Forms.CheckBox();
             this.button_sendSPS101 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.textBox_messageSPS101 = new System.Windows.Forms.TextBox();
@@ -51,6 +49,10 @@
             this.label9 = new System.Windows.Forms.Label();
             this.button_sendIF100 = new System.Windows.Forms.Button();
             this.button_disconnect = new System.Windows.Forms.Button();
+            this.button_subscribeIF100 = new System.Windows.Forms.Button();
+            this.button_unsubscribeIF100 = new System.Windows.Forms.Button();
+            this.button_subscribeSPS101 = new System.Windows.Forms.Button();
+            this.button_unsubscribeSPS101 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -183,30 +185,6 @@
             this.richTextBox_SPS101.TabIndex = 14;
             this.richTextBox_SPS101.Text = "";
             // 
-            // checkBox_IF100
-            // 
-            this.checkBox_IF100.AutoSize = true;
-            this.checkBox_IF100.Enabled = false;
-            this.checkBox_IF100.Location = new System.Drawing.Point(51, 185);
-            this.checkBox_IF100.Name = "checkBox_IF100";
-            this.checkBox_IF100.Size = new System.Drawing.Size(73, 17);
-            this.checkBox_IF100.TabIndex = 15;
-            this.checkBox_IF100.Text = "Subscribe";
-            this.checkBox_IF100.UseVisualStyleBackColor = true;
-            this.checkBox_IF100.CheckedChanged += new System.EventHandler(this.checkBox_IF100_CheckedChanged);
-            // 
-            // checkBox_SPS101
-            // 
-            this.checkBox_SPS101.AutoSize = true;
-            this.checkBox_SPS101.Enabled = false;
-            this.checkBox_SPS101.Location = new System.Drawing.Point(438, 185);
-            this.checkBox_SPS101.Name = "checkBox_SPS101";
-            this.checkBox_SPS101.Size = new System.Drawing.Size(73, 17);
-            this.checkBox_SPS101.TabIndex = 16;
-            this.checkBox_SPS101.Text = "Subscribe";
-            this.checkBox_SPS101.UseVisualStyleBackColor = true;
-            this.checkBox_SPS101.CheckedChanged += new System.EventHandler(this.checkBox_SPS101_CheckedChanged);
-            // 
             // button_sendSPS101
             // 
             this.button_sendSPS101.Enabled = false;
@@ -282,11 +260,67 @@
             this.button_disconnect.UseVisualStyleBackColor = false;
             this.button_disconnect.Click += new System.EventHandler(this.button_disconnect_Click);
             // 
+            // button_subscribeIF100
+            // 
+            this.button_subscribeIF100.BackColor = System.Drawing.SystemColors.Control;
+            this.button_subscribeIF100.Enabled = false;
+            this.button_subscribeIF100.Location = new System.Drawing.Point(54, 180);
+            this.button_subscribeIF100.Margin = new System.Windows.Forms.Padding(2);
+            this.button_subscribeIF100.Name = "button_subscribeIF100";
+            this.button_subscribeIF100.Size = new System.Drawing.Size(78, 22);
+            this.button_subscribeIF100.TabIndex = 24;
+            this.button_subscribeIF100.Text = "subscribe";
+            this.button_subscribeIF100.UseVisualStyleBackColor = false;
+            this.button_subscribeIF100.Click += new System.EventHandler(this.button_subscribeIF100_Click);
+            // 
+            // button_unsubscribeIF100
+            // 
+            this.button_unsubscribeIF100.BackColor = System.Drawing.SystemColors.Control;
+            this.button_unsubscribeIF100.Enabled = false;
+            this.button_unsubscribeIF100.Location = new System.Drawing.Point(150, 180);
+            this.button_unsubscribeIF100.Margin = new System.Windows.Forms.Padding(2);
+            this.button_unsubscribeIF100.Name = "button_unsubscribeIF100";
+            this.button_unsubscribeIF100.Size = new System.Drawing.Size(81, 22);
+            this.button_unsubscribeIF100.TabIndex = 25;
+            this.button_unsubscribeIF100.Text = "unsubscribe";
+            this.button_unsubscribeIF100.UseVisualStyleBackColor = false;
+            this.button_unsubscribeIF100.Click += new System.EventHandler(this.button_unsubscribeIF100_Click);
+            // 
+            // button_subscribeSPS101
+            // 
+            this.button_subscribeSPS101.BackColor = System.Drawing.SystemColors.Control;
+            this.button_subscribeSPS101.Enabled = false;
+            this.button_subscribeSPS101.Location = new System.Drawing.Point(435, 181);
+            this.button_subscribeSPS101.Margin = new System.Windows.Forms.Padding(2);
+            this.button_subscribeSPS101.Name = "button_subscribeSPS101";
+            this.button_subscribeSPS101.Size = new System.Drawing.Size(83, 22);
+            this.button_subscribeSPS101.TabIndex = 26;
+            this.button_subscribeSPS101.Text = "subscribe";
+            this.button_subscribeSPS101.UseVisualStyleBackColor = false;
+            this.button_subscribeSPS101.Click += new System.EventHandler(this.buton_subscribeSPS101_Click);
+            // 
+            // button_unsubscribeSPS101
+            // 
+            this.button_unsubscribeSPS101.BackColor = System.Drawing.SystemColors.Control;
+            this.button_unsubscribeSPS101.Enabled = false;
+            this.button_unsubscribeSPS101.Location = new System.Drawing.Point(535, 181);
+            this.button_unsubscribeSPS101.Margin = new System.Windows.Forms.Padding(2);
+            this.button_unsubscribeSPS101.Name = "button_unsubscribeSPS101";
+            this.button_unsubscribeSPS101.Size = new System.Drawing.Size(88, 22);
+            this.button_unsubscribeSPS101.TabIndex = 27;
+            this.button_unsubscribeSPS101.Text = "unsubscribe";
+            this.button_unsubscribeSPS101.UseVisualStyleBackColor = false;
+            this.button_unsubscribeSPS101.Click += new System.EventHandler(this.button_unsubscribeSPS101_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(747, 552);
+            this.Controls.Add(this.button_unsubscribeSPS101);
+            this.Controls.Add(this.button_subscribeSPS101);
+            this.Controls.Add(this.button_unsubscribeIF100);
+            this.Controls.Add(this.button_subscribeIF100);
             this.Controls.Add(this.button_disconnect);
             this.Controls.Add(this.button_sendIF100);
             this.Controls.Add(this.label9);
@@ -294,8 +328,6 @@
             this.Controls.Add(this.button_sendSPS101);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox_messageSPS101);
-            this.Controls.Add(this.checkBox_SPS101);
-            this.Controls.Add(this.checkBox_IF100);
             this.Controls.Add(this.richTextBox_SPS101);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -334,8 +366,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RichTextBox richTextBox_SPS101;
-        private System.Windows.Forms.CheckBox checkBox_IF100;
-        private System.Windows.Forms.CheckBox checkBox_SPS101;
         private System.Windows.Forms.Button button_sendSPS101;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox_messageSPS101;
@@ -343,6 +373,10 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button_sendIF100;
         private System.Windows.Forms.Button button_disconnect;
+        private System.Windows.Forms.Button button_subscribeIF100;
+        private System.Windows.Forms.Button button_unsubscribeIF100;
+        private System.Windows.Forms.Button button_subscribeSPS101;
+        private System.Windows.Forms.Button button_unsubscribeSPS101;
     }
 }
 
